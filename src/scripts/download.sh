@@ -15,7 +15,7 @@ filename="codecov"
 echo "export filename=${filename}" >> $BASH_ENV
 [[ $os == "macos" ]] && \
   HOMEBREW_NO_AUTO_UPDATE=1 brew install gpg
-codecov_url="https://uploader.codecov.io"
+codecov_url="https://cli.codecov.io"
 codecov_url="$codecov_url/${PARAM_VERSION}"
 codecov_url="$codecov_url/${os}/${filename}"
 echo "Downloading ${codecov_url}"

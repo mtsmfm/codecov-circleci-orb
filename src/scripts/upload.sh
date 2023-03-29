@@ -6,10 +6,22 @@ chmod +x $filename
   set - "${@}" "-f" "${PARAM_FILE}"
 [ -n "${PARAM_XTRA_ARGS}" ] && \
   set - "${@}" "${PARAM_XTRA_ARGS}"
+[ -n "${PARAM_FLAGS}" ] && \
+  set - "${@}" "-F" "${PARAM_FLAGS}"
 # alpine doesn't allow for indirect expansion
+#create commit
 ./"$filename" \
-  -Q "codecov-circleci-orb-3.2.4" \
+  create-commit \
+  -t "$(eval echo \$$PARAM_TOKEN)" \
+
+#create report
+./"$filename" \
+  create-report \
+  -t "$(eval echo \$$PARAM_TOKEN)" \
+
+#upload reports
+./"$filename" \
+  do-upload \
   -t "$(eval echo \$$PARAM_TOKEN)" \
   -n "${PARAM_UPLOAD_NAME}" \
-  -F "${PARAM_FLAGS}" \
   ${@}
